@@ -9,15 +9,17 @@ on:
         default: 'v12.6_prev'
 
 jobs:
-  vita_android_build:
-    permissions:
-      contents: write
+  build:
     runs-on: ubuntu-latest
+    env:
+      JVM_OPTS: -Xmx6G
+      VCPKG_ROOT: /usr/local/share/vcpkg
+
     steps:
-    - uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: 17
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
 
     - name: Download Vita source code
       run: |
